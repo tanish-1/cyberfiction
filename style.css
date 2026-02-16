@@ -229,10 +229,23 @@ canvas{
         font-size: 12px;
     }
     
+    /* Fix canvas size on mobile */
+    canvas {
+        position: absolute;
+        width: 50% !important;
+        height: auto !important;
+        max-width: 50vw !important;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+    }
+    
     #loop {
         font-size: 40px;
         top: 20%;
         height: 30%;
+        z-index: 10;
     }
     
     #page>h3 {
@@ -241,6 +254,7 @@ canvas{
         left: 3%;
         text-align: center;
         width: 94%;
+        z-index: 10;
     }
     
     #page>h4 {
@@ -248,6 +262,7 @@ canvas{
         top: 60%;
         left: 50%;
         transform: translateX(-50%);
+        z-index: 10;
     }
     
     /* Page 1 Responsive */
@@ -335,6 +350,12 @@ canvas{
         font-size: 11px;
     }
     
+    /* Make canvas even smaller on small devices */
+    canvas {
+        width: 45% !important;
+        max-width: 45vw !important;
+    }
+    
     #loop {
         font-size: 28px;
         top: 18%;
@@ -378,6 +399,12 @@ canvas{
 @media (max-width: 375px) {
     #nav>h3 {
         font-size: 14px;
+    }
+    
+    /* Further reduce canvas size */
+    canvas {
+        width: 40% !important;
+        max-width: 40vw !important;
     }
     
     #loop {
