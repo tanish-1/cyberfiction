@@ -3,7 +3,7 @@ function locomotive() {
 
   const locoScroll = new LocomotiveScroll({
     el: document.querySelector("#main"),
-    smooth: true ,
+    smooth: true,
   });
   locoScroll.on("scroll", ScrollTrigger.update);
 
@@ -13,7 +13,6 @@ function locomotive() {
         ? locoScroll.scrollTo(value, 0, 0)
         : locoScroll.scroll.instance.scroll.y;
     },
-
     getBoundingClientRect() {
       return {
         top: 0,
@@ -22,30 +21,38 @@ function locomotive() {
         height: window.innerHeight,
       };
     },
-
     pinType: document.querySelector("#main").style.transform
       ? "transform"
       : "fixed",
   });
+
   ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
   ScrollTrigger.refresh();
 }
 locomotive();
 
-
-const canvas = document.querySelector("canvas");
+/* ─────────────────────────────────────────────────────
+   CANVAS SETUP
+───────────────────────────────────────────────────── */
+const canvas  = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const isMobile = () => window.innerWidth <= 768;
 
+function setCanvasSize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+setCanvasSize();
 
 window.addEventListener("resize", function () {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  setCanvasSize();
   render();
 });
 
+/* ─────────────────────────────────────────────────────
+   IMAGE SEQUENCE
+───────────────────────────────────────────────────── */
 function files(index) {
   var data = `
      ./male0001.png
@@ -353,15 +360,12 @@ function files(index) {
 }
 
 const frameCount = 300;
-
-const images = [];
-const imageSeq = {
-  frame: 1,
-};
+const images     = [];
+const imageSeq   = { frame: 1 };
 
 for (let i = 0; i < frameCount; i++) {
   const img = new Image();
-  img.src = files(i);
+  img.src   = files(i);
   images.push(img);
 }
 
@@ -385,61 +389,88 @@ function render() {
   scaleImage(images[imageSeq.frame], context);
 }
 
+/* ─────────────────────────────────────────────────────
+   scaleImage
+   
+   Desktop : fill canvas, shift character down slightly
+             for the artistic bottom-crop look.
+   Mobile  : fill canvas, shift character DOWN so the
+             head/chest occupies the lower 55% of screen
+             (matching the screenshot — text sits over
+             the upper empty area).
+───────────────────────────────────────────────────── */
 function scaleImage(img, ctx) {
-  var canvas = ctx.canvas;
-  var hRatio = canvas.width / img.width;
-  var vRatio = canvas.height / img.height;
-  var ratio = Math.max(hRatio, vRatio);
-  var centerShift_x = (canvas.width - img.width * ratio) / 2;
-  var centerShift_y = (canvas.height - img.height * ratio) / 2;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(
-    img,
-    0,
-    0,
-    img.width,
-    img.height,
-    centerShift_x,
-    centerShift_y,
-    img.width * ratio,
-    img.height * ratio
-  );
+  var cvs    = ctx.canvas;
+  var hRatio = cvs.width  / img.width;
+  var vRatio = cvs.height / img.height;
+  var ratio  = Math.max(hRatio, vRatio);
+
+  var scaledW = img.width  * ratio;
+  var scaledH = img.height * ratio;
+
+  /* Horizontal: always centred */
+  var cx = (cvs.width - scaledW) / 2;
+
+  var cy;
+  if (isMobile()) {
+    /*
+     * On mobile the character PNG has the figure centred.
+     * We push it DOWN so the head starts at ~45% of the
+     * viewport height — text block sits in the top 45%.
+     *
+     * Positive cy  = image moves DOWN on canvas.
+     * Natural centre = (cvs.height - scaledH) / 2
+     * We add extra offset to push it further down.
+     */
+    var naturalCy = (cvs.height - scaledH) / 2;
+    cy = naturalCy + cvs.height * 0.12;   /* push down 12 vh */
+  } else {
+    /* Desktop: slightly below centre for cinematic crop */
+    cy = (cvs.height - scaledH) / 2;
+  }
+
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, scaledW, scaledH);
 }
+
+/* ─────────────────────────────────────────────────────
+   PIN canvas while scrubbing
+───────────────────────────────────────────────────── */
 ScrollTrigger.create({
   trigger: "#page>canvas",
   pin: true,
-  // markers:true,
   scroller: `#main`,
   start: `top top`,
   end: `600% top`,
 });
 
-
-
-gsap.to("#page1",{
-  scrollTrigger:{
-    trigger:`#page1`,
-    start:`top top`,
-    end:`bottom top`,
-    pin:true,
-    scroller:`#main`
-  }
-})
-gsap.to("#page2",{
-  scrollTrigger:{
-    trigger:`#page2`,
-    start:`top top`,
-    end:`bottom top`,
-    pin:true,
-    scroller:`#main`
-  }
-})
-gsap.to("#page3",{
-  scrollTrigger:{
-    trigger:`#page3`,
-    start:`top top`,
-    end:`bottom top`,
-    pin:true,
-    scroller:`#main`
-  }
-})
+/* ─────────────────────────────────────────────────────
+   PIN remaining pages
+───────────────────────────────────────────────────── */
+gsap.to("#page1", {
+  scrollTrigger: {
+    trigger: `#page1`,
+    start: `top top`,
+    end: `bottom top`,
+    pin: true,
+    scroller: `#main`,
+  },
+});
+gsap.to("#page2", {
+  scrollTrigger: {
+    trigger: `#page2`,
+    start: `top top`,
+    end: `bottom top`,
+    pin: true,
+    scroller: `#main`,
+  },
+});
+gsap.to("#page3", {
+  scrollTrigger: {
+    trigger: `#page3`,
+    start: `top top`,
+    end: `bottom top`,
+    pin: true,
+    scroller: `#main`,
+  },
+});

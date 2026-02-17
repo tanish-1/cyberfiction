@@ -51,6 +51,7 @@ canvas{
     font-size: 100px;
     white-space: nowrap;
     font-family: gilroy;
+    z-index: 4;              /* ← was missing on desktop too */
 }
 #loop>h1{
     font-weight: 400;
@@ -94,6 +95,8 @@ canvas{
     color: #fff;
     border: none;
 }
+
+/* ── #page text ── */
 #page>h3{
     position: absolute;
     top: 55%;
@@ -101,6 +104,7 @@ canvas{
     font-weight: 400;
     color: #7c7c7c;
     left: 5%;
+    z-index: 4;              /* ← already had this */
 }
 #page>h4{
     position: absolute;
@@ -108,11 +112,15 @@ canvas{
     left: 25%;
     font-family: gilroy;
     font-weight: 500;
+    z-index: 4;              /* ← already had this */
 }
+
+/* ── #page1 text ── */
 #page1>#right-text{
     position: absolute;
     top: 30%;
     left: 10%;
+    z-index: 4;              /* ← ADDED */
 }
 #page1>#right-text>h3{
     font-weight: 400;
@@ -127,6 +135,7 @@ canvas{
     top: 50%;
     right: 10%;
     text-align: end;
+    z-index: 4;              /* ← ADDED */
 }
 #page1>#left-text>h1{
     font-size: 50px;
@@ -136,10 +145,13 @@ canvas{
     color: #7c7c7c;
     font-weight: 400;
 }
+
+/* ── #page2 text ── */
 #page2>#text1{
     position: absolute;
     top: 30%;
     left: 10%;
+    z-index: 4;              /* ← ADDED */
 }
 #page2>#text1>h3{
     color: #7c7c7c;
@@ -154,16 +166,20 @@ canvas{
     top: 55%;
     right: 10%;
     text-align: end;
+    z-index: 4;              /* ← ADDED */
 }
 #page2>#text2>p{
     color: #7c7c7c;
     font-weight: 400;
 }
+
+/* ── #page3 text ── */
 #page3>#text3{
     position: absolute;
     top: 40%;
     right: 10%;
     text-align: end;
+    z-index: 4;              /* ← ADDED */
 }
 #page3>#text3>h3{
     color: #7c7c7c;
@@ -171,5 +187,162 @@ canvas{
 }
 #page3>#text3>h1{
     font-size: 70px;
+}
 
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ≤ 768px
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* ── Nav ── */
+    #nav {
+        padding: 0 18px;
+        height: 52px;
+    }
+    #nav > h3  { font-size: 16px; }
+    #nav > button {
+        padding: 7px 13px;
+        font-size: 11px;
+    }
+
+    /* ── Canvas: fills full #page ── */
+    canvas {
+        position: absolute ;
+        top: 10%;
+        left: 0 ;
+        width: 100vw ;
+        height: 100vh ;
+        max-width: 100vw;
+        max-height: 100vh;
+        z-index: 1;
+        display: block;
+    }
+
+    /* ── Marquee ── */
+    #loop {
+        top: 52px;
+        height: auto;
+        font-size: 0;
+        z-index: 4;
+        pointer-events: none;
+    }
+    #loop > h1 {
+        font-size: 44px;
+        line-height: 1.15;
+    }
+
+    /* ── #page description text ── */
+    #page > h3 {
+        position: absolute;
+        top: 18%;
+        left: 4%;
+        width: 70%;
+        font-size: 11.5px;
+        line-height: 1.65;
+        color: #3d3d3d;
+        z-index: 4;
+        pointer-events: none;
+        white-space: normal;
+    }
+
+    /* ── #page scroll hint ── */
+    #page > h4 {
+        position: absolute;
+        top: 32%;
+        left: 4%;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        z-index: 4;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    /* ── Page 1 ── */
+    #page1 {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 70px;
+        padding-bottom: 50px;
+    }
+    #page1 > #right-text {
+        position: relative;
+        top: auto;
+        left: auto;
+        text-align: left;
+        padding: 20px 20px 0;
+        z-index: 4;
+    }
+    #page1 > #right-text > h1 {
+        font-size: 28px;
+        line-height: 1.4;
+          z-index: 4;
+    }
+    #page1 > #right-text > h3 { font-size: 12px;   z-index: 4;}
+
+    #page1 > #left-text {
+        position: relative;
+        top: auto;
+        right: auto;
+        text-align: right;
+        padding: 28px 20px 0;
+        z-index: 4;
+    }
+    #page1 > #left-text > h1  { font-size: 28px; line-height: 1.4;   z-index: 4;}
+    #page1 > #left-text > h3  { font-size: 12px; }
+
+    /* ── Page 2 ── */
+    #page2 {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 70px;
+        padding-bottom: 50px;
+    }
+    #page2 > #text1 {
+        position: relative;
+        top: auto;
+        left: auto;
+        padding: 20px 20px 0;
+        z-index: 4;
+    }
+    #page2 > #text1 > h1 { font-size: 34px; line-height: 1.3; }
+    #page2 > #text1 > h3 { font-size: 12px; }
+
+    #page2 > #text2 {
+        position: relative;
+        top: auto;
+        right: auto;
+        text-align: left;
+        padding: 22px 20px 0;
+        z-index: 4;
+    }
+    #page2 > #text2 > p {
+        font-size: 11.5px;
+        line-height: 1.8;
+    }
+
+    /* ── Page 3 ── */
+    #page3 {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 70px;
+        padding-bottom: 50px;
+    }
+    #page3 > #text3 {
+        position: relative;
+        top: auto;
+        right: auto;
+        text-align: left;
+        padding: 20px 20px 0;
+        z-index: 4;
+    }
+    #page3 > #text3 > h1 { font-size: 38px; line-height: 1.2; }
+    #page3 > #text3 > h3 { font-size: 12px; }
+}
+
+/* ── Tiny phones ≤ 380px ── */
+@media (max-width: 380px) {
+    #loop > h1   { font-size: 36px; }
+    #page > h3   { top: 19%; font-size: 10.5px; width: 75%; }
+    #page > h4   { top: 44%; }
 }
