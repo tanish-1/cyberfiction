@@ -1,31 +1,28 @@
-* {
-    margin: 0;
-    padding: 0;
+*{
+    margin: 0%;
+    padding: 0%;
     box-sizing: border-box;
     font-family: gilroy;
 }
-
-html, body {
+html,body{
     height: 100%;
     width: 100%;
 }
-
-#main {
+#main{
     position: relative;
     overflow: hidden;
 }
-
 #page{
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-color: #fff;
+    background-color: #f1f1f1;
 }
 #page1{
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-color: rgb(240, 233, 245);
+    background-color: #f1f1f1;
 }
 #page2{
     position: relative;
@@ -39,12 +36,11 @@ html, body {
     width: 100vw;
     background-color: #f1f1f1;
 }
-
 canvas{
+    position: relative;
     z-index: 9;
     max-width: 100vw;
     max-height: 100vh;
-    position: relative;
 }
 #loop{
     display: flex;
@@ -58,14 +54,17 @@ canvas{
 }
 #loop>h1{
     font-weight: 400;
-    animation: anime 15s linear infinite;
+    animation-name: anim;
+    animation-duration: 15s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 #loop>h1>span{
     -webkit-text-stroke: 1.2px #000;
     color: transparent;
     font-weight: 500;
 }
-@keyframes anime {
+@keyframes anim{
     0%{
         transform: translateX(0%);
     }
@@ -80,8 +79,8 @@ canvas{
     height: 7%;
     width: 100%;
     position: fixed;
+    z-index: 99;
     padding: 0px 30px;
-    z-index: 9;
 }
 #nav>h3{
     font-family: gilroy;
@@ -101,39 +100,39 @@ canvas{
     font-family: gilroy;
     font-weight: 400;
     color: #7c7c7c;
-    left: 1%;
+    left: 5%;
 }
 #page>h4{
     position: absolute;
-    top: 63%;
+    top: 62%;
     left: 25%;
     font-family: gilroy;
-    font-weight: 800;
+    font-weight: 500;
 }
-#page1>#right_text{
+#page1>#right-text{
     position: absolute;
     top: 30%;
     left: 10%;
 }
-#page1>#right_text>h3{
+#page1>#right-text>h3{
     font-weight: 400;
     color: #7c7c7c;
 }
-#page1>#right_text>h1{
+#page1>#right-text>h1{
     line-height: 1.5;
-    font-size: 48px;
+    font-size: 50px;
 }
-#page1>#left_text{
+#page1>#left-text{
     position: absolute;
     top: 50%;
     right: 10%;
     text-align: end;
 }
-#page1>#left_text>h1{
+#page1>#left-text>h1{
     font-size: 50px;
     line-height: 1.5;
 }
-#page1>#left_text>h3{
+#page1>#left-text>h3{
     color: #7c7c7c;
     font-weight: 400;
 }
@@ -152,275 +151,25 @@ canvas{
 }
 #page2>#text2{
     position: absolute;
-    top: 45%;
-    right: 5%;
+    top: 55%;
+    right: 10%;
     text-align: end;
 }
 #page2>#text2>p{
     color: #7c7c7c;
-    font-weight: 500;
+    font-weight: 400;
 }
 #page3>#text3{
     position: absolute;
-    text-align: end;
-    top: 38%;
+    top: 40%;
     right: 10%;
+    text-align: end;
 }
 #page3>#text3>h3{
     color: #7c7c7c;
     font-weight: 400;
 }
 #page3>#text3>h1{
-    line-height: 1.4;
     font-size: 70px;
-}
 
-/* ============================================
-   RESPONSIVE DESIGN - MEDIA QUERIES
-   ============================================ */
-
-/* Tablet Styles (768px - 1024px) */
-@media (max-width: 1024px) {
-    #loop {
-        font-size: 70px;
-        top: 25%;
-    }
-    
-    #page>h3 {
-        font-size: 14px;
-        top: 50%;
-    }
-    
-    #page>h4 {
-        font-size: 14px;
-        top: 58%;
-        left: 20%;
-    }
-    
-    #page1>#right_text>h1 {
-        font-size: 38px;
-    }
-    
-    #page1>#left_text>h1 {
-        font-size: 38px;
-    }
-    
-    #page2>#text1>h1 {
-        font-size: 48px;
-    }
-    
-    #page3>#text3>h1 {
-        font-size: 55px;
-    }
-}
-
-/* Mobile Styles (max-width: 768px) */
-@media (max-width: 768px) {
-    #nav {
-        padding: 0px 15px;
-    }
-    
-    #nav>h3 {
-        font-size: 18px;
-    }
-    
-    #nav>button {
-        padding: 8px 15px;
-        font-size: 12px;
-    }
-    
-    /* Fix canvas size on mobile */
-    canvas {
-        position: absolute;
-        width: 50% !important;
-        height: auto !important;
-        max-width: 50vw !important;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        object-fit: contain;
-    }
-    
-    #loop {
-        font-size: 40px;
-        top: 20%;
-        height: 30%;
-        z-index: 10;
-    }
-    
-    #page>h3 {
-        font-size: 11px;
-        top: 48%;
-        left: 3%;
-        text-align: center;
-        width: 94%;
-        z-index: 10;
-    }
-    
-    #page>h4 {
-        font-size: 12px;
-        top: 60%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-    }
-    
-    /* Page 1 Responsive */
-    #page1>#right_text {
-        top: 15%;
-        left: 5%;
-        right: 5%;
-    }
-    
-    #page1>#right_text>h3 {
-        font-size: 12px;
-    }
-    
-    #page1>#right_text>h1 {
-        font-size: 28px;
-        line-height: 1.3;
-    }
-    
-    #page1>#left_text {
-        top: 55%;
-        right: 5%;
-        left: 5%;
-    }
-    
-    #page1>#left_text>h1 {
-        font-size: 28px;
-        line-height: 1.3;
-    }
-    
-    #page1>#left_text>h3 {
-        font-size: 12px;
-    }
-    
-    /* Page 2 Responsive */
-    #page2>#text1 {
-        top: 15%;
-        left: 5%;
-    }
-    
-    #page2>#text1>h3 {
-        font-size: 12px;
-    }
-    
-    #page2>#text1>h1 {
-        font-size: 35px;
-        line-height: 1.3;
-    }
-    
-    #page2>#text2 {
-        top: 50%;
-        right: 5%;
-        left: 5%;
-    }
-    
-    #page2>#text2>p {
-        font-size: 13px;
-        line-height: 1.6;
-    }
-    
-    /* Page 3 Responsive */
-    #page3>#text3 {
-        top: 25%;
-        right: 5%;
-        left: 5%;
-    }
-    
-    #page3>#text3>h3 {
-        font-size: 12px;
-    }
-    
-    #page3>#text3>h1 {
-        font-size: 40px;
-        line-height: 1.3;
-    }
-}
-
-/* Small Mobile Styles (max-width: 480px) */
-@media (max-width: 480px) {
-    #nav>h3 {
-        font-size: 16px;
-    }
-    
-    #nav>button {
-        padding: 6px 12px;
-        font-size: 11px;
-    }
-    
-    /* Make canvas even smaller on small devices */
-    canvas {
-        width: 45% !important;
-        max-width: 45vw !important;
-    }
-    
-    #loop {
-        font-size: 28px;
-        top: 18%;
-    }
-    
-    #loop>h1>span {
-        -webkit-text-stroke: 0.8px #000;
-    }
-    
-    #page>h3 {
-        font-size: 9px;
-        line-height: 1.4;
-    }
-    
-    #page>h4 {
-        font-size: 10px;
-    }
-    
-    #page1>#right_text>h1 {
-        font-size: 24px;
-    }
-    
-    #page1>#left_text>h1 {
-        font-size: 24px;
-    }
-    
-    #page2>#text1>h1 {
-        font-size: 28px;
-    }
-    
-    #page2>#text2>p {
-        font-size: 11px;
-    }
-    
-    #page3>#text3>h1 {
-        font-size: 32px;
-    }
-}
-
-/* Extra Small Mobile (max-width: 375px) */
-@media (max-width: 375px) {
-    #nav>h3 {
-        font-size: 14px;
-    }
-    
-    /* Further reduce canvas size */
-    canvas {
-        width: 40% !important;
-        max-width: 40vw !important;
-    }
-    
-    #loop {
-        font-size: 24px;
-    }
-    
-    #page1>#right_text>h1,
-    #page1>#left_text>h1 {
-        font-size: 20px;
-    }
-    
-    #page2>#text1>h1 {
-        font-size: 24px;
-    }
-    
-    #page3>#text3>h1 {
-        font-size: 28px;
-    }
 }
